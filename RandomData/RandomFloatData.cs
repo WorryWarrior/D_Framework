@@ -9,14 +9,13 @@ namespace D_Utilities
     {
         public override float GetRandomValue()
         {
-            float value = useSeed ? (float)Rng.NextDouble(minValue, maxValue) : UnityEngine.Random.Range(minValue, maxValue);
+            float value = useSeed ? Rng.RollRandomFloatInRange(minValue, maxValue) : UnityEngine.Random.Range(minValue, maxValue);
             return value;
         }
 
         public override float GetRandomValue(float _minValue, float _maxValue)
         {
-            float value = useSeed ? (float)Rng.NextDouble(_minValue, _maxValue) : UnityEngine.Random.Range(_minValue, _maxValue);
-            Debug.Log(value);
+            float value = useSeed ? Rng.RollRandomFloatInRange(_minValue, _maxValue) : UnityEngine.Random.Range(_minValue, _maxValue);
             return value;
         }
     }

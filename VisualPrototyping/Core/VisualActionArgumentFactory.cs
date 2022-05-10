@@ -11,16 +11,6 @@ namespace D_Utilities.VisualPrototyping
         {
             VisualActionArgType castedArgumentType = (VisualActionArgType)visualArgumentType;
             return ScriptableObject.CreateInstance(castedArgumentType.GetLinkedArgumentType()) as VisualActionArgument;
-
-            //return castedArgumentType switch
-            //{
-
-            /* VisualActionArgType.Int => ScriptableObject.CreateInstance<VisualActionIntArgument>(),
-             VisualActionArgType.Float => ScriptableObject.CreateInstance<VisualActionFloatArgument>(),
-             VisualActionArgType.Bool => ScriptableObject.CreateInstance<VisualActionBoolArgument>(),
-             VisualActionArgType.String => ScriptableObject.CreateInstance<VisualActionStringArgument>(),
-             _ => null,*/
-            //};
         }
 
     }

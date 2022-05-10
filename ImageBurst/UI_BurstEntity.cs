@@ -17,6 +17,21 @@ namespace D_Utilities
         public void MoveToTarget(Vector2 target, float duration)
         {
             rectTransform.DOAnchorPos(target, duration);
+            //StartCoroutine(MoveToTargetRoutine(target, duration));
+        }
+
+        private IEnumerator MoveToTargetRoutine(Vector2 target, float duration)
+        {
+            float t = 0f;
+            Vector2 startPosition = rectTransform.anchoredPosition;
+
+            while (t < duration)
+            {
+                Debug.Log(t / duration);
+                rectTransform.anchoredPosition = Vector2.Lerp(startPosition, target, t / duration);
+                t += Time.deltaTime;
+                yield return null;
+            }
         }
     }
 }

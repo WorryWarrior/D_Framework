@@ -11,14 +11,14 @@ namespace D_Utilities
         [SerializeField] protected T minValue = default;
         [SerializeField] protected T maxValue = default;
 
-        private System.Random rng;
-        protected System.Random Rng
+        private D_Rng rng;
+        protected D_Rng Rng
         {
             get
             {
                 if (rng == null)
                 {
-                    rng = new System.Random(seed);
+                    rng = new D_Rng(seed);
                 }
 
                 return rng;

@@ -7,11 +7,11 @@ namespace D_Utilities.Storages
     public abstract class WeightedStorage<T> : StorageBase<T> where T : class
     {
         [SerializeField] private List<float> percentages = new List<float>();
-        private System.Random rng;
+        private D_Rng rng;
 
         public void InitializeData(int seed)
         {
-            rng = new System.Random(seed);
+            rng = new D_Rng(seed);
         }
 
         public override T GetElement()
@@ -22,7 +22,7 @@ namespace D_Utilities.Storages
                 return default;
             }
 
-            double percentage = rng.NextDouble() * 100f;
+            float percentage = rng.RollRandomFloatInRange(0f, 100f);
 
             for (int i = 0; i < ElementCount; i++)
             {
@@ -40,9 +40,11 @@ namespace D_Utilities.Storages
             return default;
         }
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
         private void OnValidate()
         {
+            Debug.Log("Validated");
+
             if (ElementCount - percentages.Count > 0)
             {
                 for (int i = 0; i < ElementCount - percentages.Count; i++)
@@ -58,7 +60,7 @@ namespace D_Utilities.Storages
                 }
             }
         }
-#endif
+#endif*/
     }
 
 }

@@ -16,6 +16,15 @@ namespace D_Utilities.VisualPrototyping
         Bool,
 
         [LinkedVisualActionArgumentType(typeof(VisualActionStringArgument))]
-        String
+        String,
+
+        [LinkedVisualActionArgumentType(typeof(VisualActionVector3Argument))]
+        Vector3,
+
+        [LinkedVisualActionArgumentType(typeof(VisualActionVector2Argument))]
+        Vector2,
+
+        [LinkedVisualActionArgumentType(typeof(VisualActionColorArgument))]
+        Color
     }
 }
