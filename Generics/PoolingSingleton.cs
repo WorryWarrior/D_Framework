@@ -6,11 +6,18 @@ namespace D_Utilities
 {
     public abstract class PoolingSingleton<T> : PoolingObjectBase where T : Component
     {
+        private static bool isDestroyed = false;
+
         private static T instance;
         public static T Instance
         {
             get
             {
+                if (isDestroyed)
+                {
+                    return null;
+                }
+
                 if (instance == null)
                 {
                     instance = FindObjectOfType<T>();
@@ -39,6 +46,11 @@ namespace D_Utilities
             }
 
             base.Awake();
+        }
+
+        protected virtual void OnDisable()
+        {
+            isDestroyed = true;
         }
     }
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace D_Utilities.VisualPrototyping
 {
-    public class VisualActionTImerTriggerData : VisualActionTriggerData
+    public class VisualActionTimerTriggerData : VisualActionTriggerData
     {
         public float blockDelay;
 
-        public VisualActionTImerTriggerData(float _blockDelay)
+        public VisualActionTimerTriggerData(float _blockDelay)
         {
             blockDelay = _blockDelay;
         }

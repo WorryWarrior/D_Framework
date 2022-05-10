@@ -12,6 +12,7 @@ namespace D_Utilities.Storages
 #if UNITY_EDITOR
     public class StringStorageEditorBase : Editor
     {
+        private const string EMPTY_PATH = "";
         private const string STORAGE_COLLECTION_NAME = "elements";
         private const string TXT_EXTENSION = ".txt";
 
@@ -36,38 +37,24 @@ namespace D_Utilities.Storages
         {
             fileContents = new List<string>();
 
-            if (path == "")
+            if (path == EMPTY_PATH)
                 return false;
 
-            string fileExtension = Path.GetExtension(path);
-            switch (fileExtension)
-            {
-                case TXT_EXTENSION:
-                    fileContents = ParseTxt(path);
-                    break;
-                default:
-                    Debug.LogError($"{fileExtension} files are not supported");
-                    break;
-            }
+            fileContents = GetParser(Path.GetExtension(path)).Parse(path);
 
             return true;
         }
 
-        private List<string> ParseTxt(string txtPath)
+        private IParser GetParser(string extension)
         {
-            string line;
-            List<string> lines = new List<string>();
-
-            using (StreamReader fileSR = new StreamReader(txtPath))
+            switch (extension)
             {
-                while ((line = fileSR.ReadLine()) != null)
-                {
-                    lines.Add(line);
-                }
-
+                case TXT_EXTENSION:
+                    return new TxtParser();
+                default:
+                    Debug.LogError($"{extension} files are not supported");
+                    return null;
             }
-
-            return lines;
         }
     }
 #endif

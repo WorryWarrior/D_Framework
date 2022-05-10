@@ -29,7 +29,7 @@ namespace D_Utilities.VisualPrototyping
                     subscribers[i].ExecuteSubscriberActionBlock(triggerPressCount);
                 }
 
-                visualActionTrigger.UpdateData(new VisualActionTImerTriggerData(EvaluateBlockDelay(triggerPressCount)));
+                visualActionTrigger.UpdateData(new VisualActionTimerTriggerData(EvaluateBlockDelay(triggerPressCount)));
                 triggerPressCount++;
             };
 

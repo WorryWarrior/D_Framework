@@ -27,7 +27,7 @@ namespace D_Utilities.VisualPrototyping
 
         public override void UpdateData(VisualActionTriggerData data)
         {
-            VisualActionTImerTriggerData timerTriggerData = data as VisualActionTImerTriggerData;
+            VisualActionTimerTriggerData timerTriggerData = data as VisualActionTimerTriggerData;
             blockDelay = timerTriggerData.blockDelay;
         }
 

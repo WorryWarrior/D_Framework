@@ -59,15 +59,15 @@ namespace D_Utilities
             yield return ExecuteWhenRoutine(condition, action);
         }
 
-        /*        public static Coroutine ExecuteCoroutine(float delay, System.Action coroutineAction)
-                {
-                    return Instance.StartCoroutine(Instance.ExecuteCoroutineRoutine(delay, coroutineAction));
-                }
+        public static Coroutine Execute(float delay, System.Action coroutineAction)
+        {
+            return Instance.StartCoroutine(Instance.ExecuteRoutine(delay, coroutineAction));
+        }
 
-                private IEnumerator ExecuteCoroutineRoutine(float delay, System.Action coroutineAction)
-                {
-                    yield return new WaitForSeconds(delay);
-                    coroutineAction();
-                }*/
+        private IEnumerator ExecuteRoutine(float delay, System.Action coroutineAction)
+        {
+            yield return new WaitForSeconds(delay);
+            coroutineAction();
+        }
     }
 }

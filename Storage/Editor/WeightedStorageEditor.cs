@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -15,6 +16,8 @@ namespace D_Utilities.Storages
         private SerializedProperty percentageList;
         private SerializedProperty elementList;
 
+        private float[] percentageBuffer;
+
         private void OnEnable()
         {
             percentageList = serializedObject.FindProperty("percentages");
@@ -22,6 +25,19 @@ namespace D_Utilities.Storages
         }
 
         public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            DrawImportButton();
+
+            percentageBuffer = percentageList.GetAsArray<float>();
+
+            if (percentageBuffer.Sum() != 100f)
+            {
+                EditorGUILayout.HelpBox("Percentages do not cover all cases", MessageType.Warning);
+            }
+        }
+
+        /*public override void OnInspectorGUI()
         {
             serializedObject.Update();
 
@@ -44,7 +60,7 @@ namespace D_Utilities.Storages
 
             DrawImportButton();
             serializedObject.Update();
-        }
+        }*/
     }
 #endif
 }

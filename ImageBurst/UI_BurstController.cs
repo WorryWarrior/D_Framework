@@ -8,9 +8,6 @@ namespace D_Utilities
     {
         [SerializeField] private RandomFloatData randomData = null;
 
-        [SerializeField] private float transitionTime = 1f;
-        [SerializeField] private float transitionTimeOffset = 0f;
-
         [SerializeField] private List<UI_BurstObjectPoolItem> itemsToPool = new List<UI_BurstObjectPoolItem>();
 
         public event System.Action OnAllImagesReached;
@@ -35,18 +32,21 @@ namespace D_Utilities
                 {
                     it.SetActive(true);
                     it.GetComponent<RectTransform>().anchoredPosition = GetImagePosition(burstObjectPoolItem);
-                    float reachTime = randomData.GetRandomValue(transitionTime + transitionTimeOffset, transitionTime - transitionTimeOffset);
+
+                    float reachTime = randomData.GetRandomValue(burstObjectPoolItem.transitionTime + burstObjectPoolItem.transitionTimeOffset,
+                        burstObjectPoolItem.transitionTime - burstObjectPoolItem.transitionTimeOffset);
+
                     it.GetComponent<UI_BurstEntity>().MoveToTarget(
                         RectTransformUtility.CalculateRelativeRectTransformBounds(burstObjectPoolItem.targetCanvas.transform,
                         burstObjectPoolItem.target.transform).center, reachTime);
 
-                    CoroutineActions.ExecuteAction(reachTime, () =>
+                    MB_Utilities.Execute(reachTime, () =>
                         it.SetActive(false)
                     );
                 });
             }
 
-            CoroutineActions.ExecuteAction(transitionTime + transitionTimeOffset, () =>
+            MB_Utilities.Execute(burstObjectPoolItem.transitionTime + burstObjectPoolItem.transitionTimeOffset, () =>
                         OnAllImagesReached?.Invoke()
                     );
         }
@@ -87,6 +87,8 @@ namespace D_Utilities
             public RectTransform target;
             public RectTransform originBounds;
             public Canvas targetCanvas;
+            public float transitionTime;
+            public float transitionTimeOffset;
         }
     }
 }
