@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace D_Utilities {
+namespace D_Framework {
 
     /// <summary>
     /// Thread-safe implementation of Random Number Generator which makes use of noise function as a fundamental for 
     /// generating a sequence of pseudorandom numbers. Does not have a state and, therefore, may be called from different threads and
-    /// allows backtracking. See "Noise-Based RNG" talk at 2017 GDC for more information.
+    /// allows backtracking. See Squirrel Eiserloh's "Noise-Based RNG" talk at 2017 GDC for more information.
     /// </summary>
 
     public class D_Rng
@@ -57,7 +57,11 @@ namespace D_Utilities {
         }
         public float RollRandomFloatZeroToOne()
         {
-            return GetRandomInt().Remap(0, int.MaxValue, 0f, 1f); ;
+            return GetRandomInt().Remap(0, int.MaxValue, 0f, 1f);
+        }
+        public float RollRandomFloatMinusOneToOne()
+        {
+            return GetRandomInt().Remap(0, int.MaxValue, -1f, 1f);
         }
         public int RollRandomIntInRange(int minValueInclusive, int maxValueInclusive)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using D_NaughtyAttributes;
 
-namespace D_Utilities.VisualPrototyping
+namespace D_Framework.VisualPrototyping
 {
     public class VisualPrototyper : MonoBehaviour
     {
@@ -17,28 +17,49 @@ namespace D_Utilities.VisualPrototyping
 
         private void Start()
         {
-            visualActionTrigger.OnVisualActionTriggered += () =>
-            {
-                if (triggerPressCount < actionBlocks.Count)
-                {
-                    actionBlocks[triggerPressCount].ExecuteActionBlock();
-                }
-
-                for (int i = 0; i < subscribers.Count; i++)
-                {
-                    subscribers[i].ExecuteSubscriberActionBlock(triggerPressCount);
-                }
-
-                visualActionTrigger.UpdateData(new VisualActionTimerTriggerData(EvaluateBlockDelay(triggerPressCount)));
-                triggerPressCount++;
-            };
-
+            visualActionTrigger.OnVisualActionTriggered += Tick;
             visualActionTrigger.StartTracking();
+        }
+
+        private void Tick()
+        {
+            if (triggerPressCount < actionBlocks.Count)
+            {
+                actionBlocks[triggerPressCount].ExecuteActionBlock();
+            }
+
+            for (int i = 0; i < subscribers.Count; i++)
+            {
+                subscribers[i].ExecuteSubscriberActionBlock(triggerPressCount);
+            }
+
+            visualActionTrigger.UpdateData(new VisualActionTimerTriggerData(EvaluateBlockDelay(triggerPressCount)));
+            triggerPressCount++;
         }
 
         public void Subscribe(VisualPrototyperSubscriber visualPrototyperSubscriber)
         {
             subscribers.Add(visualPrototyperSubscriber);
+        }
+
+        public void SwitchTrigger(VisualActionAbstractTrigger newTrigger)
+        {
+            if (visualActionTrigger == newTrigger)
+            {
+                Debug.Log($"Attempted to set the same trigger. That is now allowed. Skipping...\n" +
+                    $"Current Trigger: {visualActionTrigger.name}, New Trigger: {newTrigger.name}");
+
+                return;
+            }
+
+            Debug.Log($"Trigger at {name} was switched from {visualActionTrigger.name} to {newTrigger.name}");
+
+            visualActionTrigger.OnVisualActionTriggered -= Tick;
+            visualActionTrigger.Dispose();
+            visualActionTrigger = newTrigger;
+            visualActionTrigger.OnVisualActionTriggered += Tick;
+            visualActionTrigger.StartTracking();
+
         }
 
         private float EvaluateBlockDelay(int index)
@@ -56,7 +77,7 @@ namespace D_Utilities.VisualPrototyping
                 blockDelay = subscribers[i].GetMaxBlockDelay(index);
                 if (blockDelay > maxDelay)
                     maxDelay = blockDelay;
-                
+
             }
 
             return maxDelay;

@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEditor;
 using System.IO;
 
-namespace D_Utilities.VisualPrototyping
+namespace D_Framework.VisualPrototyping
 {
     [CustomEditor(typeof(VisualActionArgs))]
     public class VisualActionArgsEditor : Editor

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace D_Utilities.Events
+namespace D_Framework.Events
 {
     public class EventController : Singleton<EventController>
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace D_Utilities
+namespace D_Framework
 {
     public class UI_BurstController : PoolingObjectBase
     {

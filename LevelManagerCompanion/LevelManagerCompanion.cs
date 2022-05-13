@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace D_Utilities
+namespace D_Framework
 {
     public class LevelManagerCompanion : MonoBehaviour
     {

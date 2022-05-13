@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace D_Utilities.Storages
+namespace D_Framework.Storages
 {
     public abstract class SeededStorage<T> : StorageBase<T> where T : class //UnityEngine.Object
     {

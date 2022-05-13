@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace D_Utilities.VisualPrototyping
+namespace D_Framework.VisualPrototyping
 {
     [CreateAssetMenu(fileName = "New Visual Action Timer Trigger", menuName = "Custom Objects/Visual Prototyping/Timer Trigger")]
     public class VisualActionTimerTrigger : VisualActionAbstractTrigger

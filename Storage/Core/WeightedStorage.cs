@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace D_Utilities.Storages
+namespace D_Framework.Storages
 {
     public abstract class WeightedStorage<T> : StorageBase<T> where T : class
     {

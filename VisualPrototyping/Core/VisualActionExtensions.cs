@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace D_Utilities.VisualPrototyping
+namespace D_Framework.VisualPrototyping
 {
     public static class VisualActionExtensions 
     {

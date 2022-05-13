@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace D_Utilities.VisualPrototyping
+namespace D_Framework.VisualPrototyping
 {
     [CreateAssetMenu(fileName = "New Visual Action Button Trigger", menuName = "Custom Objects/Visual Prototyping/Button Trigger")]
     public class VisualActionButtonTrigger : VisualActionAbstractTrigger

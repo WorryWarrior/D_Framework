@@ -2,27 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace D_Utilities
+namespace D_Framework
 {
     public class MB_Utilities : Singleton<MB_Utilities>
     {
-        private WaitForEndOfFrame frameDelay = null;
-        private WaitForEndOfFrame FrameDelay
-        {
-            get
-            {
-                if (frameDelay == null)
-                {
-                    frameDelay = new WaitForEndOfFrame();
-                }
+        private const int MAX_ROUTINE_COUNT = 1_000;
+        private const int EMERGENCY_ITERATION_COUNT = 75;
 
-                return frameDelay;
-            }
-        }
+        private static Dictionary<int, Coroutine> coroutineDictionary = new Dictionary<int, Coroutine>();
 
         public static Coroutine StartHostCoroutine(IEnumerator routine)
         {
             return Instance.StartCoroutine(routine);
+        }
+
+        public static void StartHostCoroutine(IEnumerator routine, out int coroutineId)
+        {
+            Utilities.TODO("How to clear up the dictionary upon coroutine successful completion?");
+
+            for (int i = 0; i < MAX_ROUTINE_COUNT; i++)
+            {
+                if (!coroutineDictionary.TryGetValue(i, out _))
+                {
+                    coroutineId = i;
+                    coroutineDictionary.Add(i, Instance.StartCoroutine(routine));
+                    Debug.Log($"Started coroutine with id {i}");
+                    return;
+                }
+            }
+
+            coroutineId = -1;
+        }
+
+        public static void StopHostCoroutine(int id)
+        {
+            Utilities.TODO();
+
+            if (coroutineDictionary.TryGetValue(id, out Coroutine coroutine))
+            {
+                Debug.Log($"Stopped coroutine with id {id}");
+                Instance.StopCoroutine(coroutine);
+                coroutineDictionary.Remove(id);
+            }
         }
 
         public static void StopHostCoroutine(Coroutine coroutine)
@@ -41,7 +62,7 @@ namespace D_Utilities
         {
             emergency++;
 
-            if (emergency >= 25)
+            if (emergency >= EMERGENCY_ITERATION_COUNT)
             {
                 Debug.LogError("Emergency");
                 yield break;
@@ -55,7 +76,7 @@ namespace D_Utilities
 
             action();
 
-            yield return FrameDelay;
+            yield return Yield_Utilities.EndOfFrame;
             yield return ExecuteWhenRoutine(condition, action);
         }
 

@@ -7,7 +7,7 @@ using System.IO;
 using UnityEditor;
 #endif
 
-namespace D_Utilities.Storages
+namespace D_Framework.Storages
 {
 #if UNITY_EDITOR
     public class StringStorageEditorBase : Editor

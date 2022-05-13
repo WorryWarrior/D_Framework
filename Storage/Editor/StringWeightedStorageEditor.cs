@@ -7,7 +7,7 @@ using UnityEditor;
 #endif
 
 
-namespace D_Utilities.Storages
+namespace D_Framework.Storages
 {
 #if UNITY_EDITOR
     [CustomEditor(typeof(StringWeightedStorage))]

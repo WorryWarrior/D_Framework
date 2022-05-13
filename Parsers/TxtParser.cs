@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace D_Utilities
+namespace D_Framework
 {
     public class TxtParser : IParser
     {
