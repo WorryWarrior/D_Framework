@@ -10,11 +10,13 @@ namespace D_Framework.VisualPrototyping
         [SerializeField] private float tickDuration = 1f;
 
         private float blockDelay;
-        private Coroutine trackRoutine;
+        //private Coroutine trackRoutine;
+        private int trackRoutineId;
 
         public override void StartTracking()
         {
-            trackRoutine = MB_Utilities.StartHostCoroutine(TickRoutine());
+            //trackRoutine = MB_Utilities.StartHostCoroutine(TickRoutine());
+            MB_Utilities.StartHostCoroutine(TickRoutine(), out trackRoutineId);
         }
 
         public override void Dispose()
@@ -22,7 +24,8 @@ namespace D_Framework.VisualPrototyping
             if (MB_Utilities.Instance == null)
                 return;
 
-            MB_Utilities.StopHostCoroutine(trackRoutine);
+            MB_Utilities.StopHostCoroutine(trackRoutineId);
+           // MB_Utilities.StopHostCoroutine(trackRoutine);
         }
 
         public override void UpdateData(VisualActionTriggerData data)

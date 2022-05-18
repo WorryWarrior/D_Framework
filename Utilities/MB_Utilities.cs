@@ -16,17 +16,20 @@ namespace D_Framework
             return Instance.StartCoroutine(routine);
         }
 
+        public static void StopHostCoroutine(Coroutine coroutine)
+        {
+            Instance.StopCoroutine(coroutine);
+        }
+
         public static void StartHostCoroutine(IEnumerator routine, out int coroutineId)
         {
-            Utilities.TODO("How to clear up the dictionary upon coroutine successful completion?");
-
             for (int i = 0; i < MAX_ROUTINE_COUNT; i++)
             {
                 if (!coroutineDictionary.TryGetValue(i, out _))
                 {
+                    Debug.Log($"Started coroutine with id {i}");
                     coroutineId = i;
                     coroutineDictionary.Add(i, Instance.StartCoroutine(routine));
-                    Debug.Log($"Started coroutine with id {i}");
                     return;
                 }
             }
@@ -36,19 +39,12 @@ namespace D_Framework
 
         public static void StopHostCoroutine(int id)
         {
-            Utilities.TODO();
-
             if (coroutineDictionary.TryGetValue(id, out Coroutine coroutine))
             {
                 Debug.Log($"Stopped coroutine with id {id}");
                 Instance.StopCoroutine(coroutine);
                 coroutineDictionary.Remove(id);
             }
-        }
-
-        public static void StopHostCoroutine(Coroutine coroutine)
-        {
-            Instance.StopCoroutine(coroutine);
         }
 
         public static Coroutine ExecuteWhen(System.Func<bool> condition, System.Action action)

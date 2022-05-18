@@ -7,10 +7,13 @@ namespace D_Framework
 {
     public class UI_ProgressBarController : MonoBehaviour
     {
+        private const float FILL_PRECISION_DELTA = 0.005f;
+
         [SerializeField] private Image fillImage = null;
         [SerializeField] private float fillSpeed = 1f;
 
         private float targetProgress = 0f;
+        private Coroutine fillRoutine;
 
         public void SetFill(float completion, bool forceFill = false)
         {
@@ -20,11 +23,27 @@ namespace D_Framework
             {
                 fillImage.fillAmount = completion;
             }
+
+            StartFillRoutine();
         }
 
-        private void Update()
+        private IEnumerator FillRoutine(float _targetProgress)
         {
-            fillImage.fillAmount = Mathf.Lerp(fillImage.fillAmount, targetProgress, fillSpeed * Time.deltaTime);
+            while (Mathf.Abs(_targetProgress - fillImage.fillAmount) > FILL_PRECISION_DELTA)
+            {
+                fillImage.fillAmount = Mathf.Lerp(fillImage.fillAmount, _targetProgress, fillSpeed * Time.deltaTime);
+                yield return null;
+            }
+        }
+
+        private void StartFillRoutine()
+        {
+            if (fillRoutine != null)
+            {
+                StopCoroutine(fillRoutine);
+            }
+
+            fillRoutine = StartCoroutine(FillRoutine(targetProgress));
         }
     }
 }
