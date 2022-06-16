@@ -6,11 +6,11 @@ namespace D_Framework.VisualPrototyping
 {
     public class VisualActionFloatArgument : VisualActionArgument
     {
-        [SerializeField] private float flaotValue = default;
+        [SerializeField] private float floatValue = default;
 
         public override object GetArgumentValue()
         {
-            return flaotValue;
+            return floatValue;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace D_Framework
+namespace D_Framework.GDR
 {
 #if UNITY_EDITOR
 

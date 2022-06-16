@@ -5,23 +5,17 @@ using UnityEngine;
 
 namespace D_Framework
 {
-    public class TxtParser : IParser
+    public class TxtParser : IParser<string>
     {
-        public List<string> Parse(string path)
+        public IEnumerable<string> Parse(string path)
         {
             string line;
-            List<string> lines = new List<string>();
 
-            using (StreamReader fileSR = new StreamReader(path))
+            using StreamReader fileSR = new StreamReader(path);
+            while ((line = fileSR.ReadLine()) != null)
             {
-                while ((line = fileSR.ReadLine()) != null)
-                {
-                    lines.Add(line);
-                }
-
+                yield return line;
             }
-
-            return lines;
         }
     }
 }

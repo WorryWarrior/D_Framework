@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace D_Framework
 {
-    public interface IParser 
+    public interface IParser<T>
     {
-        public List<string> Parse(string path); 
+        public IEnumerable<T> Parse(string path); 
     }
 }

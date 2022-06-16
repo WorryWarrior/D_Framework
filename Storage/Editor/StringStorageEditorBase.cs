@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 using System.IO;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -40,12 +41,12 @@ namespace D_Framework.Storages
             if (path == EMPTY_PATH)
                 return false;
 
-            fileContents = GetParser(Path.GetExtension(path)).Parse(path);
-
+            fileContents = GetParser(Path.GetExtension(path)).Parse(path).ToList();
+            
             return true;
         }
 
-        private IParser GetParser(string extension)
+        private IParser<string> GetParser(string extension)
         {
             switch (extension)
             {
