@@ -34,7 +34,7 @@ namespace D_Framework.Events
         public static void TriggerEvent(ObservedEventType observedEventType, object param = null)
         {
             if (Instance.listeners.TryGetValue(observedEventType, out System.Action<object> eventCallback))
-                eventCallback.Invoke(param);
+                eventCallback?.Invoke(param);
         }
     }
 }
