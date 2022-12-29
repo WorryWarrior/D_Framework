@@ -46,7 +46,7 @@ namespace D_Framework
             }
         }
 
-        protected virtual void OnDisable()
+        protected virtual void OnDestroy()
         {
             isDestroyed = true;
         }
